@@ -8,8 +8,28 @@ class Demo {
     }
 }
 
-
 function createAndDestroy() {
+    function test() {
+        const objs = [];
+        const counter = {
+            count: 0
+        }
+        
+        for (let i = 0; i < 1000; i++) {
+            for (let boom = 0; boom < 1000; boom++) {
+                const currBoom = objs[objs.push(new Demo(counter)) - 1];
+                currBoom.setMe();
+            }
+        }
+
+        console.log(`Counter is: ${counter.count}`);
+    }
+
+    repeat(test, 10, 'Create and Destroy');
+}
+
+
+function createWithAPool() {
     function test() {
         const counter = {
             count: 0
@@ -31,7 +51,7 @@ function createAndDestroy() {
         console.log(`Counter is: ${counter.count}`);
     }
 
-    repeat(test, 10, 'Create and Destroy');
+    repeat(test, 10, 'Create with a Pool');
 }
 
 class PoolObject {
